@@ -35,6 +35,9 @@ androidx-ui-tooling-preview = { group = "androidx.compose.ui", name = "ui-toolin
 androidx-ui-test-manifest = { group = "androidx.compose.ui", name = "ui-test-manifest" }
 androidx-ui-test-junit4 = { group = "androidx.compose.ui", name = "ui-test-junit4" }
 androidx-material3 = { group = "androidx.compose.material3", name = "material3" }
+androidx-viewModel = { group = "androidx.lifecycle", name = "lifecycle-viewmodel-compose" }
+#'androidx.lifecycle:lifecycle-viewmodel-compose:2.7.0'
+
 
 compose-navigation = {group = "androidx.navigation", name = "navigation-compose", version.ref = "navigation"}
 coroutine-test = { group = "org.jetbrains.kotlinx", name = "kotlinx-coroutines-test",version = "1.7.3" }
@@ -53,6 +56,7 @@ serialization = {group = "org.jetbrains.kotlinx", name = "kotlinx-serialization-
 
 dagger-hilt = { group = "com.google.dagger", name = "hilt-android", version.ref = "hilt" }
 dagger-hilt-ksp = { group = "com.google.dagger", name = "hilt-android-compiler", version.ref = "hilt" }
+hilt-compose-navigation = { group = "androidx.hilt", name = "hilt-navigation-compose", version = "1.2.0" }
 
 
 room-runtine = { group = "androidx.room", name = "room-runtime", version.ref = "roomVersion" }
@@ -78,5 +82,6 @@ android-room = { id = "androidx.room", version.ref = "roomVersion" }
 [bundles]
 coil = ["coil-compose", "coil-network"]
 room = ["room-runtine", "room_coroutine"]
+hilt = ["dagger-hilt", "hilt-compose-navigation"]
 retrofitBundle = ["retrofit", "logger", "okHttp3", "serial"]
 junit5 = ["junit-jupiter","junit-engine","junit-vintage-engine", "truth","coroutine-test"]

@@ -70,7 +70,7 @@ dependencies {
     implementation(libs.compose.navigation)
     implementation(libs.bundles.coil)
     implementation(libs.bundles.retrofitBundle)
-    implementation(libs.dagger.hilt)
+    implementation(libs.bundles.hilt)
     ksp(libs.dagger.hilt.ksp)
 
 
