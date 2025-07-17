@@ -2,16 +2,21 @@ plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.android)
     alias(libs.plugins.kotlin.compose)
+    alias(libs.plugins.ksp)
+    alias(libs.plugins.dagger.hilt)
+    alias(libs.plugins.kotlin.serialization)
+    alias(libs.plugins.android.room)
+
 }
 
 android {
     namespace = "com.swapcard.randomusers"
-    compileSdk = 34
+    compileSdk = 35
 
     defaultConfig {
         applicationId = "com.swapcard.randomusers"
         minSdk = 24
-        targetSdk = 34
+        targetSdk = 35
         versionCode = 1
         versionName = "1.0"
 
@@ -36,6 +41,11 @@ android {
     }
     buildFeatures {
         compose = true
+        buildConfig = true
+    }
+
+    room {
+        schemaDirectory("$projectDir/schemas")
     }
 }
 
@@ -56,4 +66,17 @@ dependencies {
     androidTestImplementation(libs.androidx.ui.test.junit4)
     debugImplementation(libs.androidx.ui.tooling)
     debugImplementation(libs.androidx.ui.test.manifest)
+
+    implementation(libs.compose.navigation)
+    implementation(libs.bundles.coil)
+    implementation(libs.bundles.retrofitBundle)
+    implementation(libs.dagger.hilt)
+    ksp(libs.dagger.hilt.ksp)
+
+
+    implementation(libs.bundles.room)
+    ksp(libs.room.ksp)
+
+
+    testImplementation(libs.bundles.junit5)
 }

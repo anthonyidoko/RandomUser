@@ -8,6 +8,17 @@ espressoCore = "3.6.1"
 lifecycleRuntimeKtx = "2.9.2"
 activityCompose = "1.10.1"
 composeBom = "2024.04.01"
+navigation = "2.8.9"
+retrofitVersion = "3.0.0"
+truthVersion = "1.4.4"
+okHttp3Version = "5.0.0-alpha.2"
+coilVersion = "3.1.0"
+junitJupiter = "5.10.2"
+junitJupiterEngine = "5.10.2"
+hilt = "2.56.2"
+kspVersion = "2.1.21-2.0.1"
+roomVersion = "2.7.2"
+
 
 [libraries]
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
@@ -25,8 +36,47 @@ androidx-ui-test-manifest = { group = "androidx.compose.ui", name = "ui-test-man
 androidx-ui-test-junit4 = { group = "androidx.compose.ui", name = "ui-test-junit4" }
 androidx-material3 = { group = "androidx.compose.material3", name = "material3" }
 
+compose-navigation = {group = "androidx.navigation", name = "navigation-compose", version.ref = "navigation"}
+coroutine-test = { group = "org.jetbrains.kotlinx", name = "kotlinx-coroutines-test",version = "1.7.3" }
+
+
+coil-compose = { group = "io.coil-kt.coil3", name = "coil-compose", version.ref = "coilVersion" }
+coil-network = { group = "io.coil-kt.coil3", name = "coil-network-okhttp", version.ref = "coilVersion" }
+
+retrofit = {group = "com.squareup.retrofit2", name = "retrofit", version.ref = "retrofitVersion"}
+serial = {group = "com.squareup.retrofit2", name = "converter-kotlinx-serialization", version = "3.0.0"}
+logger = {group = "com.squareup.okhttp3", name = "logging-interceptor", version.ref = "okHttp3Version"}
+okHttp3 = {group = "com.squareup.okhttp3", name = "okhttp", version.ref = "okHttp3Version"}
+
+serialization = {group = "org.jetbrains.kotlinx", name = "kotlinx-serialization-json", version = "1.8.0"}
+
+
+dagger-hilt = { group = "com.google.dagger", name = "hilt-android", version.ref = "hilt" }
+dagger-hilt-ksp = { group = "com.google.dagger", name = "hilt-android-compiler", version.ref = "hilt" }
+
+
+room-runtine = { group = "androidx.room", name = "room-runtime", version.ref = "roomVersion" }
+room_ksp = { group = "androidx.room", name = "room-compiler", version.ref =  "roomVersion"}
+room_coroutine = { group = "androidx.room", name = "room-ktx", version.ref =  "roomVersion"}
+
+truth = {group = "com.google.truth", name = "truth", version.ref = "truthVersion"}
+junit-jupiter = { group = "org.junit.jupiter", name = "junit-jupiter", version.ref = "junitJupiter" }
+junit-engine = { group = "org.junit.jupiter", name = "junit-jupiter-engine", version.ref = "junitJupiterEngine" }
+junit-vintage-engine = { group = "org.junit.vintage", name = "junit-vintage-engine", version.ref = "junitJupiter" }
+
+
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }
 kotlin-android = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }
 kotlin-compose = { id = "org.jetbrains.kotlin.plugin.compose", version.ref = "kotlin" }
+kotlin-serialization = { id = "org.jetbrains.kotlin.plugin.serialization", version.ref = "kotlin"}
+dagger-hilt = { id = "com.google.dagger.hilt.android", version.ref = "hilt" }
+ksp = { id = "com.google.devtools.ksp", version.ref = "kspVersion" }
+android-room = { id = "androidx.room", version.ref = "roomVersion" }
 
+
+[bundles]
+coil = ["coil-compose", "coil-network"]
+room = ["room-runtine", "room_coroutine"]
+retrofitBundle = ["retrofit", "logger", "okHttp3", "serial"]
+junit5 = ["junit-jupiter","junit-engine","junit-vintage-engine", "truth","coroutine-test"]
