@@ -11,8 +11,13 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.widthIn
 import androidx.compose.foundation.layout.wrapContentHeight
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Favorite
+import androidx.compose.material.icons.filled.FavoriteBorder
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
+import androidx.compose.material3.Icon
+import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
@@ -20,8 +25,10 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import com.swapcard.randomusers.R
 
 @Composable
 fun UserItemCard(
@@ -30,7 +37,8 @@ fun UserItemCard(
     lastName: String?,
     imageUrl: String?,
     country: String?,
-    age: Int?
+    isFavourite: Boolean = false,
+    onBookMarkClick: () -> Unit
 ) {
     Card(
         modifier = modifier
@@ -80,9 +88,17 @@ fun UserItemCard(
                 )
             }
 
-            Text(
-                text = "${age ?: ""}"
-            )
+            IconButton(onClick = onBookMarkClick) {
+                Icon(
+                    imageVector = Icons.Default.Favorite.takeIf { isFavourite }
+                        ?: Icons.Default.FavoriteBorder,
+                    contentDescription = stringResource(
+                        R.string.add_to_favourite
+                    ).takeIf { isFavourite }
+                        ?: stringResource(R.string.remove_from_favourite)
+                )
+            }
+
         }
     }
 }
@@ -96,7 +112,8 @@ private fun UserItemCardPreview() {
             lastName = "Anthony Idoko",
             imageUrl = "",
             country = "Nigeria",
-            age = 20
+            isFavourite = true,
+            onBookMarkClick = {}
         )
     }
 }

@@ -38,7 +38,8 @@ fun PullToRefreshLazyColumn(
     isRefreshing: Boolean,
     listState: LazyListState = rememberLazyListState(),
     onUserClick: (String) -> Unit,
-    onRefresh: () -> Unit
+    onRefresh: () -> Unit,
+    onBookMarkClick: (String) -> Unit
 ) {
 
     val pullToRefreshState = rememberPullToRefreshState()
@@ -67,7 +68,8 @@ fun PullToRefreshLazyColumn(
                         lastName = user.lastName,
                         imageUrl = user.imageUrl,
                         country = user.country,
-                        age = user.age
+                        isFavourite = user.isFavourite,
+                        onBookMarkClick = { onBookMarkClick(user.id) }
                     )
                 }
 
@@ -111,7 +113,8 @@ private fun UsersListPreview() {
             isLoadMore = false,
             isRefreshing = false,
             onRefresh = {},
-            onUserClick = {}
+            onUserClick = {},
+            onBookMarkClick = {}
         )
     }
 }

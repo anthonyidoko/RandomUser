@@ -12,5 +12,6 @@ data class User(
     val phone: String?,
     val imageUrl: String?,
     val country: String?,
-    val age: Int?
+    val age: Int?,
+    val isFavourite: Boolean = false
 )

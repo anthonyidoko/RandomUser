@@ -43,8 +43,8 @@ fun UserListScreenRoot(
             state = state,
             onUserClick = onUserClick,
             onLoadMoreUsers = viewModel::loadMoreUsers,
-
-            onRefresh = viewModel::refreshUserList
+            onRefresh = viewModel::refreshUserList,
+            onBookMarkClick = viewModel::onBookMarkClick
         )
     }
 

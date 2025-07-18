@@ -2,4 +2,6 @@
     <string name="app_name">RandomUsers</string>
     <string name="users">Users</string>
     <string name="loading_more">Loading more users</string>
+    <string name="add_to_favourite">Add to favourite</string>
+    <string name="remove_from_favourite">Remove from favourite</string>
 </resources>

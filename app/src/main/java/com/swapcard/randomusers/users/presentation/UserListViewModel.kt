@@ -93,6 +93,10 @@ class UserListViewModel @Inject constructor(
         fetchUsers()
     }
 
+    fun onBookMarkClick(userId: String) {
+        TODO("Not yet implemented")
+    }
+
 
 }
 
