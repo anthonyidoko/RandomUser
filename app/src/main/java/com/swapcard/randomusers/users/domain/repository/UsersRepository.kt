@@ -1,6 +1,7 @@
 package com.swapcard.randomusers.users.domain.repository
 
 import com.swapcard.randomusers.users.domain.DomainUsers
+import com.swapcard.randomusers.users.domain.model.User
 import com.swapcard.randomusers.users.domain.util.Result
 
 interface UsersRepository {
@@ -10,6 +11,6 @@ interface UsersRepository {
         count: Int = 25
     ): Result<DomainUsers>
 
-    suspend fun addUserToBookMark(userId: String)
+    suspend fun addUserToBookMark(user: User)
 }
 

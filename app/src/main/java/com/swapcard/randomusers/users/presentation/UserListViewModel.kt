@@ -2,16 +2,19 @@ package com.swapcard.randomusers.users.presentation
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.swapcard.randomusers.users.domain.model.User
 import com.swapcard.randomusers.users.domain.repository.UsersRepository
 import com.swapcard.randomusers.users.domain.util.Result
 import com.swapcard.randomusers.users.presentation.userlist.UserListUiState
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.onStart
 import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
+import okhttp3.Dispatcher
 import javax.inject.Inject
 
 @HiltViewModel
@@ -93,9 +96,9 @@ class UserListViewModel @Inject constructor(
         fetchUsers()
     }
 
-    fun onBookMarkClick(userId: String) {
-        viewModelScope.launch {
-            repository.addUserToBookMark(userId)
+    fun onBookMarkClick(user:User) {
+        viewModelScope.launch(Dispatchers.IO) {
+            repository.addUserToBookMark(user)
         }
     }
 

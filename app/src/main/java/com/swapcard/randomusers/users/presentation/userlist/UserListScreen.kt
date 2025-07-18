@@ -26,7 +26,7 @@ fun UserListScreen(
     onUserClick: (String) -> Unit,
     onLoadMoreUsers: () -> Unit,
     onRefresh: () -> Unit,
-    onBookMarkClick: (String) -> Unit = {}
+    onBookMarkClick: (User) -> Unit = {}
 ) {
 
     val listState = rememberLazyListState()

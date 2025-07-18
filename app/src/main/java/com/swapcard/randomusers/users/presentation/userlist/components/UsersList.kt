@@ -39,7 +39,7 @@ fun PullToRefreshLazyColumn(
     listState: LazyListState = rememberLazyListState(),
     onUserClick: (String) -> Unit,
     onRefresh: () -> Unit,
-    onBookMarkClick: (String) -> Unit
+    onBookMarkClick: (User) -> Unit
 ) {
 
     val pullToRefreshState = rememberPullToRefreshState()
@@ -70,7 +70,7 @@ fun PullToRefreshLazyColumn(
                         country = user.country,
                         isFavourite = user.isFavourite,
                         age = user.age,
-                        onBookMarkClick = { onBookMarkClick(user.id) }
+                        onBookMarkClick = { onBookMarkClick(user) }
                     )
                 }
 

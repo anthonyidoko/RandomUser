@@ -12,7 +12,7 @@ data class User(
     val imageUrl: String?,
     val country: String?,
     val age: Int?,
-    val isFavourite: Boolean = true,
+    val isFavourite: Boolean = false,
     val state: String?,
     val city: String?,
     val streetName: String?,
