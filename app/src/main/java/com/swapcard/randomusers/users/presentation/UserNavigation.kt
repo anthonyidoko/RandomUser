@@ -20,7 +20,7 @@ fun NavGraphBuilder.userNavigation(
     ) {
 
         userListScreen(
-            onUserClick = { userId -> navController.navigateToUserDetailsListScreen(userId)}
+            onUserClick = { user -> navController.navigateToUserDetailsListScreen(user)}
         )
 
         userDetailScreen(

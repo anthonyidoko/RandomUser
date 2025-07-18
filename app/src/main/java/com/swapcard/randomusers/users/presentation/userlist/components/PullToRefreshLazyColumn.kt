@@ -28,6 +28,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.swapcard.randomusers.R
 import com.swapcard.randomusers.users.domain.model.User
+import com.swapcard.randomusers.users.presentation.components.UserItemCard
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -37,7 +38,7 @@ fun PullToRefreshLazyColumn(
     isLoadMore: Boolean,
     isRefreshing: Boolean,
     listState: LazyListState = rememberLazyListState(),
-    onUserClick: (String) -> Unit,
+    onUserClick: (User) -> Unit,
     onRefresh: () -> Unit,
     onBookMarkClick: (User) -> Unit
 ) {
@@ -62,7 +63,7 @@ fun PullToRefreshLazyColumn(
                 items(users) { user ->
                     UserItemCard(
                         modifier = Modifier.clickable {
-                            onUserClick(user.id)
+                            onUserClick(user)
                         },
                         firstName = user.firstName,
                         lastName = user.lastName,

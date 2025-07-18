@@ -1,6 +1,6 @@
-package com.swapcard.randomusers.users.data.network.api
+package com.swapcard.randomusers.users.data.network
 
-import com.swapcard.randomusers.users.data.dto.UsersResponse
+import com.swapcard.randomusers.users.data.network.api.dto.UsersResponse
 import retrofit2.http.GET
 import retrofit2.http.Query
 

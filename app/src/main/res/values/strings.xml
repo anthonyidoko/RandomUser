@@ -4,4 +4,11 @@
     <string name="loading_more">Loading more users</string>
     <string name="add_to_favourite">Add to favourite</string>
     <string name="remove_from_favourite">Remove from favourite</string>
+    <string name="bookmarked_icon">BookMark Icon</string>
+    <string name="bookmarked_label">BookMark</string>
+    <string name="bookmarked_users">BookMarked Users</string>
+    <string name="user_list_icon">Home Screen Icon</string>
+    <string name="home">Home</string>
+    <string name="empty" />
+    <string name="no_bookmarked_users">Your Bookmarked user list is currently empty</string>
 </resources>

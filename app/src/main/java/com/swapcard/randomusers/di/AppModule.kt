@@ -3,11 +3,16 @@ package com.swapcard.randomusers.di
 import android.content.Context
 import androidx.room.Room
 import com.swapcard.randomusers.BuildConfig
-import com.swapcard.randomusers.users.data.network.api.UsersApi
+import com.swapcard.randomusers.users.data.network.UsersApi
 import com.swapcard.randomusers.users.data.repository.RandomUsersRepository
 import com.swapcard.randomusers.users.data.storage.UserDao
 import com.swapcard.randomusers.users.data.storage.UserDatabase
+import com.swapcard.randomusers.users.data.utils.AppCoroutineDispatchProvider
 import com.swapcard.randomusers.users.domain.repository.UsersRepository
+import com.swapcard.randomusers.users.domain.usecase.GetUsersUseCase
+import com.swapcard.randomusers.users.domain.usecase.UserBookMarkUseCase
+import com.swapcard.randomusers.users.domain.usecase.UsersManager
+import com.swapcard.randomusers.users.domain.util.CoroutineDispatchProvider
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -59,16 +64,53 @@ object AppModule {
     @Provides
     fun provideUserRepository(
         usersApi: UsersApi,
-        userDao: UserDao
-    ): UsersRepository{
-        return RandomUsersRepository(usersApi = usersApi, userDao = userDao)
+        userDao: UserDao,
+        dispatcher: CoroutineDispatchProvider
+    ): UsersRepository {
+        return RandomUsersRepository(
+            usersApi = usersApi,
+            userDao = userDao,
+            dispatcher = dispatcher
+        )
+    }
+
+    @Provides
+    fun provideCoroutineDispatcher(): CoroutineDispatchProvider = AppCoroutineDispatchProvider()
+
+    @Provides
+    fun provideUsersCombinator(
+        dispatchProvider: CoroutineDispatchProvider
+    ): UsersManager = UsersManager(dispatchProvider)
+
+    @Provides
+    fun provideUserBookMarkUseCase(
+        repository: UsersRepository,
+        dispatchProvider: CoroutineDispatchProvider
+    ): UserBookMarkUseCase {
+        return UserBookMarkUseCase(
+            repository = repository,
+            dispatchProvider = dispatchProvider
+        )
+    }
+
+    @Provides
+    fun provideGetUsersUseCase(
+        repository: UsersRepository,
+        dispatchProvider: CoroutineDispatchProvider,
+        combinator: UsersManager
+    ): GetUsersUseCase {
+        return GetUsersUseCase(
+            repository = repository,
+            dispatchProvider = dispatchProvider,
+            combinator = combinator
+        )
     }
 
     @Provides
     @Singleton
     fun provideUserDatabase(
         @ApplicationContext context: Context
-    ): UserDatabase{
+    ): UserDatabase {
         return Room.databaseBuilder(
             context = context,
             UserDatabase::class.java,
@@ -76,11 +118,12 @@ object AppModule {
         ).build()
     }
 
+
     @Provides
     @Singleton
     fun provideUserData(
         userDatabase: UserDatabase
-    ): UserDao{
+    ): UserDao {
         return userDatabase.userDao()
     }
 

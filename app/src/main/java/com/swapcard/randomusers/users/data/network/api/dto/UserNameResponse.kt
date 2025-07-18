@@ -1,4 +1,4 @@
-package com.swapcard.randomusers.users.data.dto
+package com.swapcard.randomusers.users.data.network.api.dto
 
 import kotlinx.serialization.Serializable
 

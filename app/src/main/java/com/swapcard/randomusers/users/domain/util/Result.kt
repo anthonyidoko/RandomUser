@@ -1,14 +1,24 @@
 package com.swapcard.randomusers.users.domain.util
 
-sealed interface Result<out T> {
-    data class Success<out T>(val data: T) : Result<T>
-    sealed interface Error<out T> : Result<T> {
-        sealed interface NetworkError : Error<Nothing> {
-            data class ServerError(val message: String?) : NetworkError
-        }
+sealed interface Result<out T, out D: DataError> {
+    data class Success<out T, out D: DataError>(val data: T, val error: DataError? = null) :
+        Result<T, D>
 
-        sealed interface LocalError : Error<Nothing> {
-        }
-    }
+    data class Failure<out T, out D: DataError>(val error: D) : Result<T, D>
 }
 
+interface Error
+
+interface DataError : Error {
+    enum class Network : DataError {
+        UnknownException,
+        SerializationException,
+        InvalidRequestObject,
+        TimeoutException
+    }
+
+    enum class Local : DataError {
+
+    }
+
+}

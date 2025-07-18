@@ -15,10 +15,10 @@ interface UserDao {
     suspend fun addUser(user: UserEntity)
 
     @Query("SELECT * FROM user WHERE userId = :id LIMIT 1")
-    fun getUserBYID(id: String): UserEntity?
+    suspend fun getUserById(id: String): UserEntity?
 
     @Query("SELECT * FROM user")
-    fun getAllUsers(): Flow<UserEntity>
+    fun getAllUsers(): Flow<List<UserEntity>>
 
     @Delete
     suspend fun deleteUser(user: UserEntity)

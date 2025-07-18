@@ -12,6 +12,12 @@ import org.junit.Assert.*
 class ExampleUnitTest {
     @Test
     fun addition_isCorrect() {
+        val map = LinkedHashSet<Int>()
+        map.add(1)
+        map.add(2)
+        map.add(3)
+        map.add(1)
+        println(map)
         assertEquals(4, 2 + 2)
     }
 }

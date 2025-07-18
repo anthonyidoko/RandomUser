@@ -1,4 +1,4 @@
-package com.swapcard.randomusers.users.presentation.userlist.components
+package com.swapcard.randomusers.users.presentation.components
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Box

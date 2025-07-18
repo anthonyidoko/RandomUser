@@ -1,4 +1,4 @@
-package com.swapcard.randomusers.users.presentation.userlist.components
+package com.swapcard.randomusers.users.presentation.components
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
@@ -25,6 +25,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
@@ -48,7 +49,7 @@ fun UserItemCard(
             .clip(RoundedCornerShape(12)),
         colors = CardDefaults.cardColors(
             containerColor = MaterialTheme.colorScheme.secondaryContainer,
-            contentColor = MaterialTheme.colorScheme.onSecondary
+            contentColor = MaterialTheme.colorScheme.onSurface
         )
     ) {
         Row(
@@ -100,7 +101,8 @@ fun UserItemCard(
                     contentDescription = stringResource(
                         R.string.add_to_favourite
                     ).takeIf { isFavourite }
-                        ?: stringResource(R.string.remove_from_favourite)
+                        ?: stringResource(R.string.remove_from_favourite),
+                    tint = if (isFavourite) Color.Red else MaterialTheme.colorScheme.onSurface
                 )
             }
 
