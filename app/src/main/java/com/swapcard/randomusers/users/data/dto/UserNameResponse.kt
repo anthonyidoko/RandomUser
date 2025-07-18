@@ -1,6 +1,5 @@
 package com.swapcard.randomusers.users.data.dto
 
-import com.swapcard.randomusers.users.domain.model.UserName
 import kotlinx.serialization.Serializable
 
 @Serializable
@@ -10,11 +9,8 @@ data class UserNameResponse(
     val title: String?
 )
 
-fun UserNameResponse.mapToDomainModel(): UserName {
-    return UserName(
-        first = first,
-        last = last,
-        title = title
-    )
-}
+fun UserNameResponse.firstName(): String?  = first
+fun UserNameResponse.lastName(): String?  = last
+
+
 

@@ -8,7 +8,7 @@ import kotlinx.serialization.Serializable
 data object UserListRoute
 
 fun NavGraphBuilder.userListScreen(
-    onUserClick: () -> Unit
+    onUserClick: (String) -> Unit
 ) {
     composable<UserListRoute> {
         UserListScreenRoot(

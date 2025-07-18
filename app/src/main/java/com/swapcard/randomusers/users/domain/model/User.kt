@@ -1,14 +1,16 @@
 package com.swapcard.randomusers.users.domain.model
 
 data class User(
+    val id: String,
+    val firstName: String?,
+    val lastName: String?,
     val cell: String?,
-    val dob: UserDob?,
+    val dob: String?,
     val email: String?,
     val gender: String?,
-    val id: UserId?,
     val location: UserLocation?,
-    val name: UserName?,
-    val nat: String?,
     val phone: String?,
-    val imageUre: String?
+    val imageUrl: String?,
+    val country: String?,
+    val age: Int?
 )

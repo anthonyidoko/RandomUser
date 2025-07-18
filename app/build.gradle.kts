@@ -1,3 +1,5 @@
+import java.util.Properties
+
 plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.android)
@@ -7,6 +9,12 @@ plugins {
     alias(libs.plugins.kotlin.serialization)
     alias(libs.plugins.android.room)
 
+}
+
+val cred = rootProject.file("credentials.properties")
+val credProperties = Properties()
+cred.inputStream().use { input ->
+    credProperties.load(input)
 }
 
 android {
@@ -24,14 +32,26 @@ android {
     }
 
     buildTypes {
+        val baseUrl = credProperties["baseUrl"] as String
         release {
             isMinifyEnabled = false
             proguardFiles(
                 getDefaultProguardFile("proguard-android-optimize.txt"),
                 "proguard-rules.pro"
             )
+            buildConfigField("String", "BASE_URL", baseUrl)
+
+        }
+
+        debug {
+            proguardFiles(
+                getDefaultProguardFile("proguard-android-optimize.txt"),
+                "proguard-rules.pro"
+            )
+            buildConfigField("String", "BASE_URL", baseUrl)
         }
     }
+
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_11
         targetCompatibility = JavaVersion.VERSION_11
@@ -73,6 +93,7 @@ dependencies {
     implementation(libs.bundles.hilt)
     ksp(libs.dagger.hilt.ksp)
 
+    implementation(libs.serialization)
 
     implementation(libs.bundles.room)
     ksp(libs.room.ksp)

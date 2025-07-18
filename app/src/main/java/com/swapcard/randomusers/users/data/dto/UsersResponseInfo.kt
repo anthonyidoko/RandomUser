@@ -15,7 +15,6 @@ fun UsersResponseInfo.mapToDomainModel(): UserInfo {
     return UserInfo(
         page = page,
         results = results,
-        seed = seed,
-        version = version
+        seed = seed
     )
 }

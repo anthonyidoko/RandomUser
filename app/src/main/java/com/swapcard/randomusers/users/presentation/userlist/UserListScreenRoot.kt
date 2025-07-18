@@ -19,7 +19,7 @@ import com.swapcard.randomusers.users.presentation.components.RandomUsersTopBar
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun UserListScreenRoot(
-    onUserClick: () -> Unit
+    onUserClick: (String) -> Unit
 ) {
     val scrollBehavior = TopAppBarDefaults.enterAlwaysScrollBehavior()
 
@@ -31,6 +31,7 @@ fun UserListScreenRoot(
             )
         }
     ) { innerPadding ->
+
         val viewModel: UserListViewModel = hiltViewModel()
         val state by viewModel.state.collectAsStateWithLifecycle()
 
@@ -40,7 +41,10 @@ fun UserListScreenRoot(
                 .nestedScroll(scrollBehavior.nestedScrollConnection)
                 .fillMaxSize(),
             state = state,
-            onUserClick = onUserClick
+            onUserClick = onUserClick,
+            onLoadMoreUsers = viewModel::loadMoreUsers,
+
+            onRefresh = viewModel::refreshUserList
         )
     }
 

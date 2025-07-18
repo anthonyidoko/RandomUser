@@ -21,14 +21,16 @@ fun UserResponse.mapToDomainModel(): User {
     return User(
         cell = cell,
         phone = phone,
-        dob = dob?.mapToDomainModel(),
+        dob = dob?.date,
         email = email,
         gender = gender,
-        id = id?.mapToDomainModel(),
+        id = id?.mapToDomainModel().orEmpty(),
         location = location?.mapToDomainModel(),
-        name = name?.mapToDomainModel(),
-        nat = nat,
-        imageUre = picture?.large
+        imageUrl = picture?.large,
+        country = location?.country,
+        firstName = name?.firstName(),
+        lastName = name?.lastName(),
+        age = dob?.age
     )
 }
 
