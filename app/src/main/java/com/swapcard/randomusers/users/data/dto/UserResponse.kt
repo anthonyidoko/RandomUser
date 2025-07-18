@@ -25,13 +25,16 @@ fun UserResponse.mapToDomainModel(): User {
         email = email,
         gender = gender,
         id = id?.mapToDomainModel().orEmpty(),
-        location = location?.mapToDomainModel(),
         imageUrl = picture?.large,
         country = location?.country,
         firstName = name?.firstName(),
         lastName = name?.lastName(),
-        age = dob?.age
-    )
+        age = dob?.age,
+        state = location?.state,
+        city = location?.city,
+        streetName = location?.street?.name,
+        streetNumber = location?.street?.number,
+        )
 }
 
 

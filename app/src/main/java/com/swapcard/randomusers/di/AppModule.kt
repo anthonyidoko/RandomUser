@@ -1,12 +1,17 @@
 package com.swapcard.randomusers.di
 
+import android.content.Context
+import androidx.room.Room
 import com.swapcard.randomusers.BuildConfig
 import com.swapcard.randomusers.users.data.network.api.UsersApi
 import com.swapcard.randomusers.users.data.repository.RandomUsersRepository
+import com.swapcard.randomusers.users.data.storage.UserDao
+import com.swapcard.randomusers.users.data.storage.UserDatabase
 import com.swapcard.randomusers.users.domain.repository.UsersRepository
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
+import dagger.hilt.android.qualifiers.ApplicationContext
 import dagger.hilt.components.SingletonComponent
 import kotlinx.serialization.json.Json
 import okhttp3.MediaType.Companion.toMediaType
@@ -53,9 +58,30 @@ object AppModule {
 
     @Provides
     fun provideUserRepository(
-        usersApi: UsersApi
+        usersApi: UsersApi,
+        userDao: UserDao
     ): UsersRepository{
-        return RandomUsersRepository(usersApi = usersApi)
+        return RandomUsersRepository(usersApi = usersApi, userDao = userDao)
+    }
+
+    @Provides
+    @Singleton
+    fun provideUserDatabase(
+        @ApplicationContext context: Context
+    ): UserDatabase{
+        return Room.databaseBuilder(
+            context = context,
+            UserDatabase::class.java,
+            "user_database"
+        ).build()
+    }
+
+    @Provides
+    @Singleton
+    fun provideUserData(
+        userDatabase: UserDatabase
+    ): UserDao{
+        return userDatabase.userDao()
     }
 
 }

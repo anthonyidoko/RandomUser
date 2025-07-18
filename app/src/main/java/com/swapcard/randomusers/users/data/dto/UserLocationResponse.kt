@@ -1,6 +1,5 @@
 package com.swapcard.randomusers.users.data.dto
 
-import com.swapcard.randomusers.users.domain.model.UserLocation
 import kotlinx.serialization.Serializable
 
 @Serializable
@@ -14,15 +13,15 @@ data class UserLocationResponse(
 )
 
 
-fun UserLocationResponse.mapToDomainModel(): UserLocation {
-    return UserLocation(
-        city = city,
-        coordinates = coordinates?.mapToDomainModel(),
-        country = country,
-        state = state,
-        timezone = timezone?.mapToDomainModel(),
-        street = street?.mapToDomainModel()
-    )
-}
+//fun UserLocationResponse.mapToDomainModel(): UserLocation {
+//    return UserLocation(
+//        city = city,
+//        coordinates = coordinates?.mapToDomainModel(),
+//        country = country,
+//        state = state,
+//        timezone = timezone?.mapToDomainModel(),
+//        street = street?.mapToDomainModel()
+//    )
+//}
 
 

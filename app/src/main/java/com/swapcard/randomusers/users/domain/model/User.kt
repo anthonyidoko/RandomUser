@@ -8,10 +8,13 @@ data class User(
     val dob: String?,
     val email: String?,
     val gender: String?,
-    val location: UserLocation?,
     val phone: String?,
     val imageUrl: String?,
     val country: String?,
     val age: Int?,
-    val isFavourite: Boolean = false
+    val isFavourite: Boolean = true,
+    val state: String?,
+    val city: String?,
+    val streetName: String?,
+    val streetNumber: Int?
 )

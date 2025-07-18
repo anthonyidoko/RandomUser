@@ -90,11 +90,14 @@ private val users = (1..10).map {
         dob = "",
         email = "",
         gender = "f",
-        location = null,
         country = "Nogeroa",
         phone = null,
         imageUrl = null,
-        age = 23
+        age = 23,
+        city = null,
+        state = "",
+        streetName = "",
+        streetNumber = 9
     )
 }
 

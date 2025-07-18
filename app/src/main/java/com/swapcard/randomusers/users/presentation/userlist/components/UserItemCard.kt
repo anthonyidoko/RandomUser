@@ -38,6 +38,7 @@ fun UserItemCard(
     imageUrl: String?,
     country: String?,
     isFavourite: Boolean = false,
+    age: Int?,
     onBookMarkClick: () -> Unit
 ) {
     Card(
@@ -86,6 +87,10 @@ fun UserItemCard(
                 Text(
                     text = country.orEmpty()
                 )
+
+                Text(
+                    text = "$age years".takeIf { age != null }.orEmpty()
+                )
             }
 
             IconButton(onClick = onBookMarkClick) {
@@ -113,6 +118,7 @@ private fun UserItemCardPreview() {
             imageUrl = "",
             country = "Nigeria",
             isFavourite = true,
+            age = 10,
             onBookMarkClick = {}
         )
     }

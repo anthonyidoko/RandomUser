@@ -9,5 +9,7 @@ interface UsersRepository {
         seed: String = "9c951a4baedfb80e",
         count: Int = 25
     ): Result<DomainUsers>
+
+    suspend fun addUserToBookMark(userId: String)
 }
 

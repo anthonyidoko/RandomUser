@@ -94,7 +94,9 @@ class UserListViewModel @Inject constructor(
     }
 
     fun onBookMarkClick(userId: String) {
-        TODO("Not yet implemented")
+        viewModelScope.launch {
+            repository.addUserToBookMark(userId)
+        }
     }
 
 

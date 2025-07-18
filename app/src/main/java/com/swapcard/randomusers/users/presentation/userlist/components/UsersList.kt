@@ -69,13 +69,13 @@ fun PullToRefreshLazyColumn(
                         imageUrl = user.imageUrl,
                         country = user.country,
                         isFavourite = user.isFavourite,
+                        age = user.age,
                         onBookMarkClick = { onBookMarkClick(user.id) }
                     )
                 }
 
                 if (isLoadMore) {
                     item {
-
                         Box(
                             modifier = Modifier
                                 .fillMaxWidth()
