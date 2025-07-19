@@ -1,8 +1,5 @@
 package com.swapcard.randomusers.users.presentation.userlist
 
-import androidx.compose.runtime.MutableState
-import androidx.compose.runtime.State
-import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.swapcard.randomusers.users.domain.model.User
@@ -11,7 +8,6 @@ import com.swapcard.randomusers.users.domain.usecase.UserBookMarkUseCase
 import com.swapcard.randomusers.users.domain.usecase.UsersManager
 import com.swapcard.randomusers.users.domain.util.Result
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.launchIn
@@ -28,9 +24,6 @@ class UserListViewModel @Inject constructor(
     private val userBookMarkUseCase: UserBookMarkUseCase,
     private val usersManager: UsersManager
 ) : ViewModel() {
-
-    private val _selectedUser = mutableStateOf<User?>(null)
-    val selectedUser: State<User?> = _selectedUser
 
     private val _state = MutableStateFlow(UserListUiState())
     val state = _state
