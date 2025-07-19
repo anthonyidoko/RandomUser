@@ -4,8 +4,10 @@ import androidx.compose.runtime.Composable
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.rememberNavController
 import com.swapcard.randomusers.ui.theme.RandomUsersTheme
-import com.swapcard.randomusers.users.presentation.UserNavigation
-import com.swapcard.randomusers.users.presentation.userNavigation
+import com.swapcard.randomusers.users.presentation.detail.navigateToUserDetailsListScreen
+import com.swapcard.randomusers.users.presentation.detail.detailScreen
+import com.swapcard.randomusers.users.presentation.userlist.UserListRoute
+import com.swapcard.randomusers.users.presentation.userlist.mainScreen
 
 @Composable
 fun AppRoot() {
@@ -13,10 +15,19 @@ fun AppRoot() {
         val navController = rememberNavController()
         NavHost(
             navController = navController,
-            startDestination = UserNavigation,
+            startDestination = UserListRoute,
         ) {
-            userNavigation(navController)
-            //BookMark Screen Here
+
+            mainScreen(
+                onUserClick = {
+                    user -> navController.navigateToUserDetailsListScreen(user) }
+            )
+
+            detailScreen(
+                onBackButtonClick = {
+                    navController.navigateUp()
+                }
+            )
         }
     }
 }

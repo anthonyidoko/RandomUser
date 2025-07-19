@@ -1,21 +1,23 @@
 package com.swapcard.randomusers.users.presentation.detail
 
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
 import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import com.swapcard.randomusers.users.presentation.utils.mapToDomainUser
 
 @Composable
 fun UserDetailScreenRoot(
     onBackButtonClick: () -> Unit
 ) {
     val viewModel: UserDetailViewModel = hiltViewModel()
-    val state = viewModel.state
+    val userState by viewModel.state.collectAsStateWithLifecycle()
+    val user = userState.mapToDomainUser()
+
     UserDetailScreen(
-        user = state,
+        user = user,
         onBookMarkClick = viewModel::onBookMarkClick,
-        onBackButtonClick = {
-            viewModel.clearUser()
-            onBackButtonClick()
-        }
+        onBackButtonClick = onBackButtonClick
     )
 
 }

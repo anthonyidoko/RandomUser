@@ -16,7 +16,7 @@
     <string name="cell">Cell:</string>
     <string name="contact">Contact</string>
     <string name="location">Location</string>
-    <string name="street">Street</string>
+    <string name="street">Street:</string>
     <string name="city">City:</string>
     <string name="state">State:</string>
     <string name="date">Date</string>

@@ -1,17 +1,17 @@
 package com.swapcard.randomusers.users.presentation.detail
 
 import androidx.compose.foundation.background
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.aspectRatio
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.ArrowBack
-import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
@@ -20,7 +20,6 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
@@ -28,10 +27,10 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.swapcard.randomusers.R
 import com.swapcard.randomusers.users.domain.model.User
+import com.swapcard.randomusers.users.presentation.components.UserBookMark
+import com.swapcard.randomusers.users.presentation.detail.component.BirthInformation
+import com.swapcard.randomusers.users.presentation.detail.component.SectionInfo
 import com.swapcard.randomusers.users.presentation.detail.component.SectionRow
-import com.swapcard.randomusers.users.presentation.utils.DateTimeFormat
-import java.time.ZonedDateTime
-import java.time.format.DateTimeFormatter
 
 @Composable
 fun UserDetailScreen(
@@ -46,11 +45,11 @@ fun UserDetailScreen(
         Column(
             horizontalAlignment = Alignment.CenterHorizontally,
             modifier = Modifier
+                .verticalScroll(rememberScrollState())
                 .background(color = MaterialTheme.colorScheme.primaryContainer)
                 .fillMaxSize()
                 .padding(20.dp)
         ) {
-
 
             UserRectangularImage(
                 modifier = Modifier
@@ -69,7 +68,6 @@ fun UserDetailScreen(
                 ),
                 textAlign = TextAlign.Center
             )
-
 
 
             SectionInfo(
@@ -130,13 +128,25 @@ fun UserDetailScreen(
             }
 
             Box(
-                modifier = Modifier.fillMaxWidth(),
+                modifier = Modifier
+                    .fillMaxWidth(),
                 contentAlignment = Alignment.CenterEnd
             ) {
-                IconButton(onClick = onBookMarkClick) {
-                    Icon(
-                        painter = painterResource(R.drawable.baseline_bookmark_add_24),
-                        contentDescription = stringResource(R.string.add_to_favourite)
+                Column(
+                    verticalArrangement = Arrangement.Center,
+                    horizontalAlignment = Alignment.CenterHorizontally
+                ) {
+                    UserBookMark(
+                        isFavourite = user.isFavourite,
+                        onBookMarkClick = onBookMarkClick
+                    )
+
+                    Text(
+                        text = if (user.isFavourite) {
+                            stringResource(R.string.remove_from_favourite)
+                        } else {
+                            stringResource(R.string.add_to_favourite)
+                        }
                     )
                 }
             }
@@ -144,7 +154,9 @@ fun UserDetailScreen(
         }
 
         Box(
-            modifier = Modifier.fillMaxWidth(),
+            modifier = Modifier
+                .padding(top = 20.dp)
+                .fillMaxWidth(),
             contentAlignment = Alignment.TopStart
         ) {
 
@@ -157,95 +169,6 @@ fun UserDetailScreen(
         }
     }
 
-}
-
-@Composable
-private fun BirthInformation(
-    dob: String?, age: Int?,
-    pattern: DateTimeFormat = DateTimeFormat.DD_MM_YYYY
-) {
-    val formattedDate = DateTimeFormatter
-        .ofPattern(pattern.value)
-        .format(ZonedDateTime.parse(dob))
-
-    SectionRow(
-        title = stringResource(R.string.date_of_birth),
-        content = formattedDate
-    )
-
-    SectionRow(
-        title = stringResource(R.string.age),
-        content = "$age years"
-    )
-}
-
-@Composable
-fun SectionInfo(
-    modifier: Modifier = Modifier,
-    headerTitle: String,
-    content: @Composable () -> Unit
-) {
-
-    Column(
-        modifier = modifier
-            .fillMaxWidth()
-            .padding(vertical = 5.dp)
-    ) {
-        Spacer(modifier = Modifier.height(12.dp))
-
-        HorizontalDivider(
-            modifier = Modifier.fillMaxWidth(),
-            thickness = 1.dp
-        )
-
-        Text(
-            modifier = Modifier.fillMaxWidth(),
-            text = headerTitle,
-            style = MaterialTheme.typography.titleMedium,
-            textAlign = TextAlign.Center
-        )
-
-        Spacer(modifier = Modifier.height(2.dp))
-
-        content()
-    }
-
-}
-
-@Composable
-fun SectionHeader(
-    modifier: Modifier = Modifier,
-    headerTitle: String
-) {
-
-    Column(modifier = modifier) {
-
-        Text(
-            modifier = Modifier.fillMaxWidth(),
-            text = headerTitle,
-            style = MaterialTheme.typography.titleMedium,
-            textAlign = TextAlign.Center,
-
-            )
-    }
-
-//
-//
-//    Row(
-//        modifier = modifier
-//            .fillMaxWidth(),
-//        verticalAlignment = Alignment.CenterVertically,
-//        horizontalArrangement = Arrangement.Absolute.Center
-//    ) {
-//
-//        Text(
-//            text = headerTitle,
-//            style = MaterialTheme.typography.titleMedium,
-//            modifier = Modifier
-//                .padding(vertical = 8.dp)
-//                .fillMaxWidth()
-//        )
-//    }
 }
 
 
