@@ -1,12 +1,8 @@
 package com.swapcard.randomusers.users.presentation.detail
 
-import androidx.compose.foundation.background
-import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.ui.Modifier
+import androidx.compose.ui.tooling.preview.Preview
+import androidx.lifecycle.SavedStateHandle
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.composable
@@ -53,8 +49,47 @@ fun User.mapToUserDetailRoute(): UserDetailRoute {
         streetNumber = streetNumber
     )
 }
+
 fun UserDetailRoute.mapToUserDetailRoute(): User {
     return User(
+        id = id,
+        firstName = firstName,
+        lastName = lastName,
+        cell = cell,
+        dob = dob,
+        email = email,
+        gender = gender,
+        phone = phone,
+        imageUrl = imageUrl,
+        country = country,
+        age = age,
+        isFavourite = isFavourite,
+        state = state,
+        city = city,
+        streetName = streetName,
+        streetNumber = streetNumber
+    )
+}
+
+val userDetail: (SavedStateHandle) -> UserDetailRoute = {
+    val id = requireNotNull(it.get<String>("id"))
+    val firstName = requireNotNull(it.get<String>("firstName"))
+    val lastName = requireNotNull(it.get<String>("lastName"))
+    val cell = requireNotNull(it.get<String>("cell"))
+    val dob = requireNotNull(it.get<String>("dob"))
+    val email = requireNotNull(it.get<String>("email"))
+    val gender = requireNotNull(it.get<String>("gender"))
+    val phone = requireNotNull(it.get<String>("phone"))
+    val imageUrl = requireNotNull(it.get<String>("imageUrl"))
+    val country = requireNotNull(it.get<String>("country"))
+    val age: Int = requireNotNull(it.get<Int>("age"))
+    val isFavourite = requireNotNull(it.get<Boolean>("isFavourite"))
+    val state = requireNotNull(it.get<String>("state"))
+    val city = requireNotNull(it.get<String>("city"))
+    val streetName = requireNotNull(it.get<String>("streetName"))
+    val streetNumber = requireNotNull(it.get<Int>("streetNumber"))
+
+    UserDetailRoute(
         id = id,
         firstName = firstName,
         lastName = lastName,
@@ -89,18 +124,13 @@ fun NavGraphBuilder.userDetailScreen(
     }
 }
 
+
+@Preview
 @Composable
-fun UserDetailScreenRoot(
-    onBackButtonClick: () -> Unit
-) {
-    Column(
-        modifier = Modifier
-            .background(color = MaterialTheme.colorScheme.primaryContainer)
-            .fillMaxSize()
-    ) {
-
-        Text(text = "Detail")
-    }
-
+fun RectangularImageCardPreview() {
+    UserRectangularImage(
+        firstName = "Wakanda",
+        url = ""
+    )
 }
 

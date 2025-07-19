@@ -20,7 +20,7 @@ import coil3.compose.rememberAsyncImagePainter
 import com.swapcard.randomusers.R
 
 @Composable
-fun UserImage(
+fun UserCircularImage(
     modifier: Modifier = Modifier,
     url: String,
     firstName: String

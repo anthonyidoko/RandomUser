@@ -61,7 +61,7 @@ fun UserItemCard(
             horizontalArrangement = Arrangement.SpaceBetween
         ) {
 
-            UserImage(
+            UserCircularImage(
                 modifier = Modifier
                     .widthIn(max = 100.dp)
                     .aspectRatio(1f)
