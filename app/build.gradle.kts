@@ -93,6 +93,9 @@ dependencies {
     implementation(libs.bundles.hilt)
     ksp(libs.dagger.hilt.ksp)
 
+    coreLibraryDesugaring("com.android.tools:desugar_jdk_libs:2.0.4")
+
+
     implementation(libs.serialization)
 
     implementation(libs.bundles.room)

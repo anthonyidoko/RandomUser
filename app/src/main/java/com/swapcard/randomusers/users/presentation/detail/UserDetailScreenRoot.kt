@@ -9,7 +9,14 @@ fun UserDetailScreenRoot(
 ) {
     val viewModel: UserDetailViewModel = hiltViewModel()
     val state = viewModel.state
-    UserDetailScreen(state)
+    UserDetailScreen(
+        user = state,
+        onBookMarkClick = viewModel::onBookMarkClick,
+        onBackButtonClick = {
+            viewModel.clearUser()
+            onBackButtonClick()
+        }
+    )
 
 }
 

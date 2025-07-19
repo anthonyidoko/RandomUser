@@ -1,11 +1,14 @@
 package com.swapcard.randomusers.users.presentation
 
+import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.lifecycle.ViewModelStoreOwner
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.NavHostController
 import androidx.navigation.navigation
 import com.swapcard.randomusers.users.presentation.detail.navigateToUserDetailsListScreen
 import com.swapcard.randomusers.users.presentation.detail.userDetailScreen
 import com.swapcard.randomusers.users.presentation.userlist.UserListRoute
+import com.swapcard.randomusers.users.presentation.userlist.UserListViewModel
 import com.swapcard.randomusers.users.presentation.userlist.userListScreen
 import kotlinx.serialization.Serializable
 
@@ -24,7 +27,9 @@ fun NavGraphBuilder.userNavigation(
         )
 
         userDetailScreen(
-            onBackButtonClick = {}
+            onBackButtonClick = {
+                navController.navigateUp()
+            }
         )
 
     }
