@@ -9,31 +9,39 @@ import com.swapcard.randomusers.users.domain.usecase.UsersManager
 import kotlinx.coroutines.test.runTest
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.Assertions.*
+import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.extension.ExtendWith
 
 @ExtendWith(CoroutineTestExtension::class)
 class FetchUsersShould {
+    private val dispatcher = TestCoroutineDispatchProvider()
+    private val usersManager = UsersManager(dispatchProvider = dispatcher)
+    private val userRepository = TestUserRepository()
+    private val userBookMarkUseCase = UserBookMarkUseCase(
+        repository = userRepository,
+        dispatchProvider = dispatcher
+    )
+    private lateinit var viewModel: UserListViewModel
 
-    @Test
-    fun showInitialLoadingState() = runTest {
-
-        val dispatcher = TestCoroutineDispatchProvider()
-        val usersManager = UsersManager(dispatchProvider = dispatcher)
-        val userRepository = TestUserRepository()
-        val userBookMarkUseCase = UserBookMarkUseCase(
-            repository = userRepository,
-            dispatchProvider = dispatcher
-        )
-        val viewModel = UserListViewModel(
+    @BeforeEach
+    fun setUp() {
+        viewModel = UserListViewModel(
             repository = userRepository,
             userBookMarkUseCase = userBookMarkUseCase,
             usersManager = usersManager
         )
 
+    }
+
+    @Test
+    fun showInitialLoadingState() = runTest {
+
         val result = collectStateFlow(stateFlow = viewModel.state)
 
         assertTrue(result.first().isLoading)
     }
+
+
 
 }
 
