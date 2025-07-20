@@ -6,7 +6,7 @@ import retrofit2.http.Query
 
 interface UsersApi {
 
-    @GET("/api/")
+    @GET("/api/?exc=login,registered")
     suspend fun fetchUsers(
         @Query("results") count: Int,
         @Query("page") page: Int,
