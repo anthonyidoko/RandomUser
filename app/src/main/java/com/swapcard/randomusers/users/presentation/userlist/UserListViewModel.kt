@@ -49,14 +49,15 @@ class UserListViewModel @Inject constructor(
     }
 
     private fun fetchUsers() {
+        val currentState = state.value
+        val page = currentState.page + 1
+        val isLoading = (!currentState.isLoadingMore && !currentState.isRefreshing)
+        _state.update {
+            it.copy(
+                isLoading = isLoading
+            )
+        }
         viewModelScope.launch {
-            val currentState = state.value
-            val page = currentState.page + 1
-            _state.update {
-                it.copy(
-                    isLoading = (!currentState.isLoadingMore && !currentState.isRefreshing)
-                )
-            }
             when (
                 val response = repository.fetchUsers(
                     page = page,
@@ -81,6 +82,11 @@ class UserListViewModel @Inject constructor(
                 }
 
                 is Result.Failure -> {
+                    _state.update {
+                        it.copy(
+                            isError = true
+                        )
+                    }
                     onLoadComplete()
                 }
             }

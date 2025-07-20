@@ -18,7 +18,6 @@ fun <T> CoroutineScope.collectStateFlow(
     val job = launch(dispatcher) {
         stateFlow.toCollection(result)
     }
-
     block()
     job.cancel()
 

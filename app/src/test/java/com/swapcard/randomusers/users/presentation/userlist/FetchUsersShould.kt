@@ -29,10 +29,9 @@ class FetchUsersShould {
             userBookMarkUseCase = userBookMarkUseCase,
             usersManager = usersManager
         )
+
         val result = collectStateFlow(stateFlow = viewModel.state)
-        result.forEach {
-            println(it)
-        }
+
         assertTrue(result.first().isLoading)
     }
 
