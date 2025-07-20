@@ -9,7 +9,6 @@ import com.swapcard.randomusers.users.data.storage.UserDao
 import com.swapcard.randomusers.users.data.storage.UserDatabase
 import com.swapcard.randomusers.users.data.utils.AppCoroutineDispatchProvider
 import com.swapcard.randomusers.users.domain.repository.UsersRepository
-import com.swapcard.randomusers.users.domain.usecase.GetUsersUseCase
 import com.swapcard.randomusers.users.domain.usecase.UserBookMarkUseCase
 import com.swapcard.randomusers.users.domain.usecase.UsersManager
 import com.swapcard.randomusers.users.domain.util.CoroutineDispatchProvider
@@ -90,19 +89,6 @@ object AppModule {
         return UserBookMarkUseCase(
             repository = repository,
             dispatchProvider = dispatchProvider
-        )
-    }
-
-    @Provides
-    fun provideGetUsersUseCase(
-        repository: UsersRepository,
-        dispatchProvider: CoroutineDispatchProvider,
-        combinator: UsersManager
-    ): GetUsersUseCase {
-        return GetUsersUseCase(
-            repository = repository,
-            dispatchProvider = dispatchProvider,
-            combinator = combinator
         )
     }
 
