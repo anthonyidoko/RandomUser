@@ -45,14 +45,6 @@ fun AutoScrollLazyRow(
             contentPadding = PaddingValues(10.dp),
             horizontalArrangement = Arrangement.spacedBy(10.dp)
         ) {
-            item {
-                Box(
-                    modifier = Modifier.fillMaxWidth(),
-                    contentAlignment = Alignment.Center
-                ) {
-                    Text(text = "Hello There")
-                }
-            }
             items(state.bookMarkedUsers) { user ->
                 BookMarkedUserItem(
                     imageUrl = user.imageUrl,

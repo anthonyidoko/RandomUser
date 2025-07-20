@@ -5,12 +5,11 @@ import com.swapcard.randomusers.users.domain.model.User
 import com.swapcard.randomusers.users.domain.repository.UsersRepository
 import com.swapcard.randomusers.users.domain.util.DataError
 import com.swapcard.randomusers.users.domain.util.Result
-import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 
 class TestUserRepository(
-    private val userRepose: DomainUsers? = null
+    private val userResponse: DomainUsers? = null
 ) : UsersRepository {
     private val localUsers = mutableListOf<User>()
     override suspend fun fetchUsers(
@@ -18,10 +17,10 @@ class TestUserRepository(
         seed: String,
         count: Int
     ): Result<DomainUsers, DataError.Network> {
-        return if (userRepose == null) {
+        return if (userResponse == null) {
             Result.Failure(DataError.Network.ServerError)
         } else {
-            Result.Success(userRepose)
+            Result.Success(userResponse)
         }
 
     }

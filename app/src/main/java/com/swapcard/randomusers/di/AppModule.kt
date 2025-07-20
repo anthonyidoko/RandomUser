@@ -77,7 +77,7 @@ object AppModule {
     fun provideCoroutineDispatcher(): CoroutineDispatchProvider = AppCoroutineDispatchProvider()
 
     @Provides
-    fun provideUsersCombinator(
+    fun provideUsersManager(
         dispatchProvider: CoroutineDispatchProvider
     ): UsersManager = UsersManager(dispatchProvider)
 

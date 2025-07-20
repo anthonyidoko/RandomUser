@@ -2,10 +2,12 @@ package com.swapcard.randomusers.users.presentation.userlist
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.swapcard.randomusers.R
 import com.swapcard.randomusers.users.domain.model.User
 import com.swapcard.randomusers.users.domain.repository.UsersRepository
 import com.swapcard.randomusers.users.domain.usecase.UserBookMarkUseCase
 import com.swapcard.randomusers.users.domain.usecase.UsersManager
+import com.swapcard.randomusers.users.domain.util.DataError
 import com.swapcard.randomusers.users.domain.util.Result
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -82,9 +84,11 @@ class UserListViewModel @Inject constructor(
                 }
 
                 is Result.Failure -> {
+                    val errorResId = extractedErrorMessage(response.error)
                     _state.update {
                         it.copy(
-                            isError = true
+                            isError = true,
+                            errorResId = errorResId
                         )
                     }
                     onLoadComplete()
@@ -93,6 +97,16 @@ class UserListViewModel @Inject constructor(
         }
     }
 
+    private fun extractedErrorMessage(error: DataError.Network): Int {
+        return when (error) {
+            DataError.Network.UnknownException -> R.string.unknown_error
+            DataError.Network.SerializationException -> R.string.serialization_error
+            DataError.Network.TimeoutException -> R.string.time_out_error
+            DataError.Network.NotFound -> R.string.not_found
+            DataError.Network.ServerError -> R.string.server_error
+            DataError.Network.UnAuthorized -> R.string.unauthorized
+        }
+    }
 
     private fun onLoadComplete() {
         _state.update {
@@ -128,7 +142,6 @@ class UserListViewModel @Inject constructor(
             userBookMarkUseCase(user)
             val managedUser = usersManager.manageUserUpdate(user, state.value.users)
             _state.update { it.copy(users = managedUser) }
-
         }
     }
 

@@ -24,4 +24,10 @@
     <string name="date_of_birth">Date of Birth:</string>
     <string name="age">Age:</string>
     <string name="back_button">Back Button</string>
+    <string name="unknown_error">Something went wrong</string>
+    <string name="serialization_error">Wrong request. Please contact administrator</string>
+    <string name="time_out_error">Please check your internet and try again</string>
+    <string name="not_found">Could not find your request</string>
+    <string name="server_error">Service is currently unavailable</string>
+    <string name="unauthorized">Can not validate your request</string>
 </resources>

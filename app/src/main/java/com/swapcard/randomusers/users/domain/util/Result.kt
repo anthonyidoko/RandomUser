@@ -14,9 +14,9 @@ interface DataError : Error {
         UnknownException,
         SerializationException,
         TimeoutException,
-        UnAuthorized,
         NotFound,
-        ServerError
+        ServerError,
+        UnAuthorized
     }
 
 }
