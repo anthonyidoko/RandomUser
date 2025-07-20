@@ -64,6 +64,12 @@ android {
         buildConfig = true
     }
 
+    testOptions.unitTests {
+        all { tests ->
+            tests.useJUnitPlatform()
+        }
+    }
+
     room {
         schemaDirectory("$projectDir/schemas")
     }
