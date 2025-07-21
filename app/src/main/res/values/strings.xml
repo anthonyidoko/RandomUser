@@ -30,4 +30,11 @@
     <string name="not_found">Could not find your request</string>
     <string name="server_error">Service is currently unavailable</string>
     <string name="unauthorized">Can not validate your request</string>
+    <string name="top_bar_test_tag">Top Bar</string>
+    <string name="top_bar_test_title">Top Bar Title</string>
+    <string name="bottom_bar_test_tag">Bottom Bar Test Tag</string>
+    <string name="home_navigation_item">Home Bottom Navigation Item</string>
+    <string name="bookmark_navigation_item">Bottom Bottom Navigation Item</string>
+    <string name="home_icon">Home Icon</string>
+    <string name="user_item_card">User Item Card Test Tag</string>
 </resources>

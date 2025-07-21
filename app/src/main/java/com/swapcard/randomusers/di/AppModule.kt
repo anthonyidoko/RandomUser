@@ -92,25 +92,5 @@ object AppModule {
         )
     }
 
-    @Provides
-    @Singleton
-    fun provideUserDatabase(
-        @ApplicationContext context: Context
-    ): UserDatabase {
-        return Room.databaseBuilder(
-            context = context,
-            UserDatabase::class.java,
-            "user_database"
-        ).build()
-    }
-
-
-    @Provides
-    @Singleton
-    fun provideUserData(
-        userDatabase: UserDatabase
-    ): UserDao {
-        return userDatabase.userDao()
-    }
 
 }

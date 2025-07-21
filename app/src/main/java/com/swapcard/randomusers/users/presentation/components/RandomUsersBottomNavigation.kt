@@ -7,6 +7,7 @@ import androidx.compose.material3.NavigationBarItem
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.navigation.NavDestination
@@ -23,10 +24,11 @@ fun RandomUsersBottomNavigation(
     onNavigateToHome: () -> Unit,
 ) {
     NavigationBar(
-        modifier = modifier,
+        modifier = modifier.testTag(stringResource(R.string.bottom_bar_test_tag)),
         windowInsets = NavigationBarDefaults.windowInsets
     ) {
         NavigationBarItem(
+            modifier = Modifier.testTag(stringResource(R.string.home_navigation_item)),
             selected = hierarchy?.any { it.hasRoute(UserListRoute::class) } == true,
             onClick = {
                 onNavigateToHome()
@@ -34,7 +36,7 @@ fun RandomUsersBottomNavigation(
             icon = {
                 Icon(
                     painter = painterResource(R.drawable.baseline_home_24),
-                    contentDescription = stringResource(R.string.user_list_icon)
+                    contentDescription = stringResource(R.string.home_icon)
                 )
             },
             label = {
@@ -43,18 +45,21 @@ fun RandomUsersBottomNavigation(
         )
 
         NavigationBarItem(
+            modifier = Modifier.testTag(stringResource(R.string.bookmark_navigation_item)),
             selected = hierarchy?.any { it.hasRoute(BookMarkedRoute::class) } == true,
             onClick = {
                 onNavigateToBookMarked()
             },
             icon = {
                 Icon(
+                    modifier = Modifier.testTag(stringResource(R.string.bookmarked_icon)),
                     painter = painterResource(R.drawable.baseline_bookmarks_24),
                     contentDescription = stringResource(R.string.bookmarked_icon)
                 )
             },
             label = {
-                Text(text = stringResource(R.string.bookmarked_label))
+                Text(
+                    text = stringResource(R.string.bookmarked_label))
             }
         )
 
