@@ -12,8 +12,13 @@ fun BirthInformation(
     dob: String?, age: Int?,
     pattern: DateTimeFormat = DateTimeFormat.DD_MM_YYYY
 ) {
-    val formattedDate = DateTimeFormatter.ofPattern(pattern.value)
-        .format(ZonedDateTime.parse(dob))
+    val formattedDate = try {
+        DateTimeFormatter.ofPattern(pattern.value)
+            .format(ZonedDateTime.parse(dob))
+    } catch (e: Exception) {
+        e.printStackTrace()
+        ""
+    }
 
     SectionRow(
         title = stringResource(R.string.date_of_birth),

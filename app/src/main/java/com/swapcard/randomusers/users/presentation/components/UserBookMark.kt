@@ -7,13 +7,19 @@ import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.res.stringResource
 import com.swapcard.randomusers.R
 
 @Composable
-fun UserBookMark(onBookMarkClick: () -> Unit, isFavourite: Boolean) {
-    IconButton(onClick = onBookMarkClick) {
+fun UserBookMark(
+    modifier: Modifier = Modifier,
+    onBookMarkClick: () -> Unit, isFavourite: Boolean) {
+    IconButton(
+        modifier = modifier.testTag(stringResource(R.string.add_to_bookmarked_icon_test_tag)),
+        onClick = onBookMarkClick) {
         Icon(
             imageVector = Icons.Default.Favorite.takeIf { isFavourite }
                 ?: Icons.Default.FavoriteBorder,

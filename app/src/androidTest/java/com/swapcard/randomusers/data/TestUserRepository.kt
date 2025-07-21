@@ -15,7 +15,6 @@ import kotlinx.coroutines.flow.map
 class TestUserRepository(
     private val userDao: UserDao
 ) : UsersRepository {
-    private val users = listOf(jake, swap, onyi, hope, kelly, bryan, jimmy)
     private val userResponse = DomainUsers(
         results = users,
         info = null,

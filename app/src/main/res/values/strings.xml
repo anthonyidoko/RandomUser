@@ -5,6 +5,7 @@
     <string name="add_to_favourite">Add to favourite</string>
     <string name="remove_from_favourite">Remove from favourite</string>
     <string name="bookmarked_icon">BookMark Icon</string>
+    <string name="add_to_bookmarked_icon_test_tag">BookMark Icon Test Tag</string>
     <string name="bookmarked_label">BookMark</string>
     <string name="bookmarked_users">BookMarked Users</string>
     <string name="user_list_icon">Home Screen Icon</string>
@@ -36,5 +37,7 @@
     <string name="home_navigation_item">Home Bottom Navigation Item</string>
     <string name="bookmark_navigation_item">Bottom Bottom Navigation Item</string>
     <string name="home_icon">Home Icon</string>
-    <string name="user_item_card">User Item Card Test Tag</string>
+    <string name="user_item_card">User Item Card Test Tag %s</string>
+    <string name="lazy_column_tag">Lazy_Column_Test_Tag</string>
+    <string name="book_mark_empty_test_tag">BookMarK_Empty_Test_Tag</string>
 </resources>

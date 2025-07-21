@@ -25,7 +25,7 @@ class UserListScreenShould {
     val composeRule = createAndroidComposeRule<MainActivity>()
 
     @Before
-    fun setUp(){
+    fun setUp() {
         hiltRule.inject()
     }
 
@@ -38,11 +38,38 @@ class UserListScreenShould {
     }
 
     @Test
-    fun loadUsersOnScreen(){
-        launchUserListScreen(composeRule){
-
-        }verify {
+    fun loadUsersOnScreen() {
+        launchUserListScreen(composeRule) {
+        } verify {
             usersLoaded()
+        }
+    }
+
+    @Test
+    fun performItemClick() {
+        launchUserListScreen(composeRule) {
+            clickFirstPersonItem()
+        } verify {
+            detailPageWithClickedPersonOpened()
+        }
+    }
+
+    @Test
+    fun addUserToBookMark() {
+        launchUserListScreen(composeRule) {
+            clickFirstPersonBookMarkIcon()
+            navigateToBookMarkScreen()
+        } verify {
+            userAddedToBookMark()
+        }
+    }
+
+    @Test
+    fun openBookMarkScreen(){
+        launchUserListScreen(composeRule){
+            navigateToBookMarkScreen()
+        } verify {
+            bookMarkScreenOpened()
         }
     }
 

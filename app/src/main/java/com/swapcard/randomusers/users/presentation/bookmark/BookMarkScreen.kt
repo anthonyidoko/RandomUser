@@ -11,6 +11,7 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import com.swapcard.randomusers.R
@@ -33,7 +34,9 @@ fun BookMarkScreen(
         if (state.users.isEmpty()) {
             item {
                 Box(
-                    modifier = Modifier.fillMaxWidth(),
+                    modifier = Modifier
+                        .testTag(stringResource(R.string.book_mark_empty_test_tag))
+                        .fillMaxWidth(),
                     contentAlignment = Alignment.TopCenter
                 ) {
                     Text(text = stringResource(R.string.no_bookmarked_users))

@@ -14,7 +14,11 @@ object TestTags {
         val bookMarkLabel: String,
         val homeIconCD: String,
         val homeScreenTitle: String,
-        val userCard: String,
+        val lazyColumn: String,
+        val bookMarkIcon: String,
+        val addToBookMarkIcon: String,
+        val bookMarkScreenTitle: String,
+        val bookMarkEmpty: String
     )
 
     fun tagsDefault(context: Context): TestTags {
@@ -28,7 +32,11 @@ object TestTags {
         val bookMarkCD = context.getString(R.string.bookmarked_icon)
         val homeIconCD = context.getString(R.string.home_icon)
         val homeScreenTitle = context.getString(R.string.users)
-        val userCard = context.getString(R.string.user_item_card)
+        val lazyColumTag = context.getString(R.string.lazy_column_tag)
+        val addToBookMarkIcon = context.getString(R.string.add_to_bookmarked_icon_test_tag)
+        val bookMarkIcon = context.getString(R.string.bookmarked_icon)
+        val bookMarkScreenTitle = context.getString(R.string.bookmarked_users)
+        val bookMarkEmpty = context.getString(R.string.book_mark_empty_test_tag)
         return TestTags(
             topBar = topBar,
             topBarTitle = topBarTitle,
@@ -40,7 +48,11 @@ object TestTags {
             bookMarkLabel = bookMarkLabel,
             homeIconCD = homeIconCD,
             homeScreenTitle = homeScreenTitle,
-            userCard = userCard
+            lazyColumn = lazyColumTag,
+            bookMarkIcon = bookMarkIcon,
+            addToBookMarkIcon = addToBookMarkIcon,
+            bookMarkScreenTitle = bookMarkScreenTitle,
+            bookMarkEmpty = bookMarkEmpty
         )
     }
 }
