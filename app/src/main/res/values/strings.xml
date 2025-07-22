@@ -2,8 +2,8 @@
     <string name="app_name">RandomUsers</string>
     <string name="users">Users</string>
     <string name="loading_more">Loading more users</string>
-    <string name="add_to_favourite">Add to favourite</string>
-    <string name="remove_from_favourite">Remove from favourite</string>
+    <string name="add_to_favourite">Add to BookMark</string>
+    <string name="remove_from_favourite">Remove from BookMark</string>
     <string name="bookmarked_icon">BookMark Icon</string>
     <string name="add_to_bookmarked_icon_test_tag">BookMark Icon Test Tag</string>
     <string name="bookmarked_label">BookMark</string>
@@ -40,4 +40,6 @@
     <string name="user_item_card">User Item Card Test Tag %s</string>
     <string name="lazy_column_tag">Lazy_Column_Test_Tag</string>
     <string name="book_mark_empty_test_tag">BookMarK_Empty_Test_Tag</string>
+    <string name="user_added_to_book_mark">%s added to bookmark</string>
+    <string name="user_removed_book_mark">%s removed from bookmark</string>
 </resources>

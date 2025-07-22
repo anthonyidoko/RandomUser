@@ -31,6 +31,8 @@ import com.swapcard.randomusers.users.presentation.components.UserBookMark
 import com.swapcard.randomusers.users.presentation.detail.component.BirthInformation
 import com.swapcard.randomusers.users.presentation.detail.component.SectionInfo
 import com.swapcard.randomusers.users.presentation.detail.component.SectionRow
+import com.swapcard.randomusers.users.presentation.utils.snackbar.ObserveBookMarkSnackBarEvent
+import com.swapcard.randomusers.users.presentation.utils.snackbar.SnackBarEventManager
 
 @Composable
 fun UserDetailScreen(
@@ -168,6 +170,8 @@ fun UserDetailScreen(
             }
         }
     }
+
+    ObserveBookMarkSnackBarEvent()
 
 }
 

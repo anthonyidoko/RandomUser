@@ -9,6 +9,8 @@ import com.swapcard.randomusers.users.domain.usecase.UserBookMarkUseCase
 import com.swapcard.randomusers.users.domain.usecase.UsersManager
 import com.swapcard.randomusers.users.domain.util.DataError
 import com.swapcard.randomusers.users.domain.util.Result
+import com.swapcard.randomusers.users.presentation.BookMarkEvent
+import com.swapcard.randomusers.users.presentation.utils.snackbar.SnackBarEventManager
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharingStarted
@@ -142,7 +144,23 @@ class UserListViewModel @Inject constructor(
             userBookMarkUseCase(user)
             val managedUser = usersManager.manageUserUpdate(user, state.value.users)
             _state.update { it.copy(users = managedUser) }
+
+            sendBookMarkEvent(user)
         }
+    }
+
+    private suspend fun sendBookMarkEvent(
+        user: User,
+    ) {
+        val firstName = user.firstName.orEmpty()
+
+        val event = if (user.isFavourite) {
+            BookMarkEvent.OnUserRemoved(firstName)
+        } else {
+            BookMarkEvent.OnUserAdded(firstName)
+        }
+
+        SnackBarEventManager.sendEvent(event)
     }
 
 

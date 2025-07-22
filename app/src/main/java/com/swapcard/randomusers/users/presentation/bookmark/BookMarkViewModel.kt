@@ -5,6 +5,8 @@ import androidx.lifecycle.viewModelScope
 import com.swapcard.randomusers.users.domain.model.User
 import com.swapcard.randomusers.users.domain.repository.UsersRepository
 import com.swapcard.randomusers.users.domain.usecase.UserBookMarkUseCase
+import com.swapcard.randomusers.users.presentation.BookMarkEvent
+import com.swapcard.randomusers.users.presentation.utils.snackbar.SnackBarEventManager
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharingStarted
@@ -44,7 +46,13 @@ class BookMarkViewModel @Inject constructor(
     fun onBookMarkClick(user: User) {
         viewModelScope.launch {
             userBookMarkUseCase.invoke(user)
+            val firstName = user.firstName.orEmpty()
+            sendBookMarkEvent(firstName)
         }
+    }
+
+    private suspend fun sendBookMarkEvent(firstName: String) {
+        SnackBarEventManager.sendEvent(BookMarkEvent.OnUserRemoved(firstName))
     }
 
 

@@ -8,6 +8,7 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.Surface
+import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.derivedStateOf
@@ -15,10 +16,13 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
+import com.swapcard.randomusers.R
 import com.swapcard.randomusers.users.domain.model.User
 import com.swapcard.randomusers.users.presentation.userlist.components.AutoScrollLazyRow
 import com.swapcard.randomusers.users.presentation.userlist.components.PullToRefreshLazyColumn
+import com.swapcard.randomusers.users.presentation.utils.snackbar.ObserveBookMarkSnackBarEvent
 import com.swapcard.randomusers.users.presentation.utils.Pagination.isCloseToEnd
 
 @Composable
@@ -31,6 +35,7 @@ fun UserListScreen(
     onBookMarkClick: (User) -> Unit = {}
 ) {
 
+
     val listState = rememberLazyListState()
     val closeToBottom by remember {
         derivedStateOf { listState.isCloseToEnd() }
@@ -39,6 +44,7 @@ fun UserListScreen(
     LaunchedEffect(closeToBottom) {
         if (closeToBottom) onLoadMoreUsers()
     }
+
 
     Column(modifier = modifier.fillMaxSize()) {
         AnimatedVisibility(state.bookMarkedUsers.isNotEmpty()) {
@@ -58,6 +64,14 @@ fun UserListScreen(
             }
         }
 
+        if (state.isError) {
+            Box(
+                modifier = Modifier.fillMaxSize(),
+                contentAlignment = Alignment.Center
+            ) {
+                Text(text = stringResource(state.errorResId ?: R.string.empty))
+            }
+        }
         PullToRefreshLazyColumn(
             modifier = Modifier,
             users = state.users,
@@ -69,7 +83,10 @@ fun UserListScreen(
             onBookMarkClick = onBookMarkClick
         )
     }
+
+    ObserveBookMarkSnackBarEvent()
 }
+
 
 
 @Preview
@@ -83,7 +100,6 @@ private fun UserListScreenPreview() {
                 users = users,
                 isLoadingMore = true
             ),
-
             onUserClick = {},
             onLoadMoreUsers = {},
             onRefresh = {}

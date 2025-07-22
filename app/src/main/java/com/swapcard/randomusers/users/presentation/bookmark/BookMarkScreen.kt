@@ -17,6 +17,7 @@ import androidx.compose.ui.unit.dp
 import com.swapcard.randomusers.R
 import com.swapcard.randomusers.users.domain.model.User
 import com.swapcard.randomusers.users.presentation.components.UserItemCard
+import com.swapcard.randomusers.users.presentation.utils.snackbar.ObserveBookMarkSnackBarEvent
 
 @Composable
 fun BookMarkScreen(
@@ -55,4 +56,6 @@ fun BookMarkScreen(
             )
         }
     }
+
+    ObserveBookMarkSnackBarEvent()
 }
