@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">RandomUsers</string>
+    <string name="app_name">Users</string>
     <string name="users">Users</string>
     <string name="loading_more">Loading more users</string>
     <string name="add_to_favourite">Add to BookMark</string>
