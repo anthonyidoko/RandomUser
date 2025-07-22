@@ -53,7 +53,7 @@ class FetchUsersShould {
             usersManager = usersManager
         )
 
-        viewModel.onBookMarkClick(users[0])
+        viewModel.onBookMarkClick(users.first())
         val result = collectStateFlow(stateFlow = viewModel.state)
 
         assertThat(result.last().bookMarkedUsers).isNotEmpty()

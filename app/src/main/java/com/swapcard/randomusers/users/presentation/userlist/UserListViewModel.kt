@@ -53,14 +53,16 @@ class UserListViewModel @Inject constructor(
     }
 
     private fun fetchUsers() {
-        val currentState = state.value
+        val currentState = _state.value
         val page = currentState.page + 1
         val isLoading = (!currentState.isLoadingMore && !currentState.isRefreshing)
+
         _state.update {
             it.copy(
                 isLoading = isLoading
             )
         }
+
         viewModelScope.launch {
             when (
                 val response = repository.fetchUsers(
@@ -142,7 +144,7 @@ class UserListViewModel @Inject constructor(
     fun onBookMarkClick(user: User) {
         viewModelScope.launch {
             userBookMarkUseCase(user)
-            val managedUser = usersManager.manageUserUpdate(user, state.value.users)
+            val managedUser = usersManager.manageUserUpdate(user, _state.value.users)
             _state.update { it.copy(users = managedUser) }
 
             sendBookMarkEvent(user)

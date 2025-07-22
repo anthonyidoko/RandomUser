@@ -13,7 +13,6 @@ fun <T> CoroutineScope.collectStateFlow(
     dispatcher: CoroutineDispatcher = Dispatchers.Unconfined,
     block: () -> Unit = {}
 ): List<T> {
-
     val result = mutableListOf<T>()
     val job = launch(dispatcher) {
         stateFlow.toCollection(result)
