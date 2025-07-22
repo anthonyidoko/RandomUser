@@ -1,17 +1,17 @@
 package com.swapcard.randomusers.users.presentation.userlist
 
-import androidx.compose.runtime.MutableState
-import androidx.compose.runtime.State
-import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.swapcard.randomusers.R
 import com.swapcard.randomusers.users.domain.model.User
 import com.swapcard.randomusers.users.domain.repository.UsersRepository
 import com.swapcard.randomusers.users.domain.usecase.UserBookMarkUseCase
 import com.swapcard.randomusers.users.domain.usecase.UsersManager
+import com.swapcard.randomusers.users.domain.util.DataError
 import com.swapcard.randomusers.users.domain.util.Result
+import com.swapcard.randomusers.users.presentation.BookMarkEvent
+import com.swapcard.randomusers.users.presentation.utils.snackbar.SnackBarEventManager
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.launchIn
@@ -28,9 +28,6 @@ class UserListViewModel @Inject constructor(
     private val userBookMarkUseCase: UserBookMarkUseCase,
     private val usersManager: UsersManager
 ) : ViewModel() {
-
-    private val _selectedUser = mutableStateOf<User?>(null)
-    val selectedUser: State<User?> = _selectedUser
 
     private val _state = MutableStateFlow(UserListUiState())
     val state = _state
@@ -56,14 +53,17 @@ class UserListViewModel @Inject constructor(
     }
 
     private fun fetchUsers() {
+        val currentState = _state.value
+        val page = currentState.page + 1
+        val isLoading = (!currentState.isLoadingMore && !currentState.isRefreshing)
+
+        _state.update {
+            it.copy(
+                isLoading = isLoading
+            )
+        }
+
         viewModelScope.launch {
-            val currentState = state.value
-            val page = currentState.page + 1
-            _state.update {
-                it.copy(
-                    isLoading = (!currentState.isLoadingMore && !currentState.isRefreshing)
-                )
-            }
             when (
                 val response = repository.fetchUsers(
                     page = page,
@@ -88,12 +88,29 @@ class UserListViewModel @Inject constructor(
                 }
 
                 is Result.Failure -> {
+                    val errorResId = extractedErrorMessage(response.error)
+                    _state.update {
+                        it.copy(
+                            isError = true,
+                            errorResId = errorResId
+                        )
+                    }
                     onLoadComplete()
                 }
             }
         }
     }
 
+    private fun extractedErrorMessage(error: DataError.Network): Int {
+        return when (error) {
+            DataError.Network.UnknownException -> R.string.unknown_error
+            DataError.Network.SerializationException -> R.string.serialization_error
+            DataError.Network.TimeoutException -> R.string.time_out_error
+            DataError.Network.NotFound -> R.string.not_found
+            DataError.Network.ServerError -> R.string.server_error
+            DataError.Network.UnAuthorized -> R.string.unauthorized
+        }
+    }
 
     private fun onLoadComplete() {
         _state.update {
@@ -127,10 +144,25 @@ class UserListViewModel @Inject constructor(
     fun onBookMarkClick(user: User) {
         viewModelScope.launch {
             userBookMarkUseCase(user)
-            val managedUser = usersManager.manageUserUpdate(user, state.value.users)
+            val managedUser = usersManager.manageUserUpdate(user, _state.value.users)
             _state.update { it.copy(users = managedUser) }
 
+            sendBookMarkEvent(user)
         }
+    }
+
+    private suspend fun sendBookMarkEvent(
+        user: User,
+    ) {
+        val firstName = user.firstName.orEmpty()
+
+        val event = if (user.isFavourite) {
+            BookMarkEvent.OnUserRemoved(firstName)
+        } else {
+            BookMarkEvent.OnUserAdded(firstName)
+        }
+
+        SnackBarEventManager.sendEvent(event)
     }
 
 

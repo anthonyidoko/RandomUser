@@ -1,6 +1,5 @@
 package com.swapcard.randomusers.users.presentation.userlist.components
 
-import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -22,6 +21,7 @@ import androidx.compose.material3.pulltorefresh.rememberPullToRefreshState
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
@@ -54,7 +54,7 @@ fun PullToRefreshLazyColumn(
     ) {
             LazyColumn(
                 modifier = modifier
-
+                    .testTag(stringResource(R.string.lazy_column_tag))
                     .fillMaxSize(),
                 state = listState,
                 contentPadding = PaddingValues(10.dp),
@@ -62,15 +62,12 @@ fun PullToRefreshLazyColumn(
             ) {
                 items(users) { user ->
                     UserItemCard(
-                        modifier = Modifier.clickable {
-                            onUserClick(user)
-                        },
                         firstName = user.firstName,
                         lastName = user.lastName,
                         imageUrl = user.imageUrl,
-                        country = user.country,
+                        email = user.email,
                         isFavourite = user.isFavourite,
-                        age = user.age,
+                        onUserClick = { onUserClick(user) },
                         onBookMarkClick = { onBookMarkClick(user) }
                     )
                 }

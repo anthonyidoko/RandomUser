@@ -1,7 +1,5 @@
 package com.swapcard.randomusers.users.presentation.components
 
-import androidx.annotation.DrawableRes
-import androidx.annotation.StringRes
 import androidx.compose.material3.Icon
 import androidx.compose.material3.NavigationBar
 import androidx.compose.material3.NavigationBarDefaults
@@ -9,6 +7,7 @@ import androidx.compose.material3.NavigationBarItem
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.navigation.NavDestination
@@ -16,41 +15,6 @@ import androidx.navigation.NavDestination.Companion.hasRoute
 import com.swapcard.randomusers.R
 import com.swapcard.randomusers.users.presentation.bookmark.BookMarkedRoute
 import com.swapcard.randomusers.users.presentation.userlist.UserListRoute
-import kotlinx.serialization.Serializable
-
-@Serializable
-sealed class BottomDestination(
-    @DrawableRes val icon: Int,
-    @StringRes val contentDescription: Int,
-    @StringRes val label: Int,
-    val route: String
-) {
-    @Serializable
-    data object Home : BottomDestination(
-        icon = R.drawable.baseline_home_24,
-        contentDescription = R.string.user_list_icon,
-        label = R.string.home,
-        route = "Home"
-    )
-
-    @Serializable
-    data object BookMarked : BottomDestination(
-        icon = R.drawable.baseline_bookmarks_24,
-        contentDescription = R.string.bookmarked_icon,
-        label = R.string.bookmarked_label,
-        route = "BookMark"
-    )
-
-
-    companion object {
-        fun entries(): List<BottomDestination> {
-            return listOf(
-                Home,
-                BookMarked
-            )
-        }
-    }
-}
 
 @Composable
 fun RandomUsersBottomNavigation(
@@ -60,42 +24,42 @@ fun RandomUsersBottomNavigation(
     onNavigateToHome: () -> Unit,
 ) {
     NavigationBar(
-        modifier = modifier,
+        modifier = modifier.testTag(stringResource(R.string.bottom_bar_test_tag)),
         windowInsets = NavigationBarDefaults.windowInsets
     ) {
         NavigationBarItem(
+            modifier = Modifier.testTag(stringResource(R.string.home_navigation_item)),
             selected = hierarchy?.any { it.hasRoute(UserListRoute::class) } == true,
             onClick = {
                 onNavigateToHome()
             },
             icon = {
                 Icon(
-                    painter = painterResource(BottomDestination.Home.icon),
-                    contentDescription = stringResource(BottomDestination.Home.contentDescription)
+                    painter = painterResource(R.drawable.baseline_home_24),
+                    contentDescription = stringResource(R.string.home_icon)
                 )
             },
             label = {
-                Text(
-                    text = stringResource(BottomDestination.Home.label)
-                )
+                Text(text = stringResource(R.string.home))
             }
         )
 
         NavigationBarItem(
+            modifier = Modifier.testTag(stringResource(R.string.bookmark_navigation_item)),
             selected = hierarchy?.any { it.hasRoute(BookMarkedRoute::class) } == true,
             onClick = {
                 onNavigateToBookMarked()
             },
             icon = {
                 Icon(
-                    painter = painterResource(BottomDestination.BookMarked.icon),
-                    contentDescription = stringResource(BottomDestination.BookMarked.contentDescription)
+                    modifier = Modifier.testTag(stringResource(R.string.bookmarked_icon)),
+                    painter = painterResource(R.drawable.baseline_bookmarks_24),
+                    contentDescription = stringResource(R.string.bookmarked_icon)
                 )
             },
             label = {
                 Text(
-                    text = stringResource(BottomDestination.BookMarked.label)
-                )
+                    text = stringResource(R.string.bookmarked_label))
             }
         )
 

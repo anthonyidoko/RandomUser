@@ -15,6 +15,9 @@ import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.withContext
+import kotlinx.serialization.SerializationException
+import retrofit2.HttpException
+import java.io.IOException
 import javax.inject.Inject
 
 class RandomUsersRepository @Inject constructor(
@@ -28,13 +31,31 @@ class RandomUsersRepository @Inject constructor(
         seed: String,
         count: Int
     ): Result<DomainUsers, DataError.Network> = withContext(dispatcher.io) {
-        val response = usersApi.fetchUsers(
-            page = page,
-            seed = seed,
-            count = count
+        return@withContext try {
+            val response = usersApi.fetchUsers(
+                page = page,
+                seed = seed,
+                count = count
 
-        ).mapToDomainModel()
-        Result.Success(response)
+            ).mapToDomainModel()
+            Result.Success(response)
+        } catch (e: HttpException) {
+            val response = when (e.code()) {
+                401 or 403 -> DataError.Network.UnAuthorized
+                404 -> DataError.Network.NotFound
+                in (500..599) -> {
+                    DataError.Network.ServerError
+                }
+
+                else -> DataError.Network.UnknownException
+            }
+            Result.Failure(response)
+        } catch (_: IOException) {
+            Result.Failure(DataError.Network.TimeoutException)
+        } catch (e: SerializationException) {
+            Result.Failure(DataError.Network.SerializationException)
+        }
+
     }
 
     override suspend fun addUserToBookMark(user: User) {

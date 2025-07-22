@@ -13,12 +13,10 @@ interface DataError : Error {
     enum class Network : DataError {
         UnknownException,
         SerializationException,
-        InvalidRequestObject,
-        TimeoutException
-    }
-
-    enum class Local : DataError {
-
+        TimeoutException,
+        NotFound,
+        ServerError,
+        UnAuthorized
     }
 
 }

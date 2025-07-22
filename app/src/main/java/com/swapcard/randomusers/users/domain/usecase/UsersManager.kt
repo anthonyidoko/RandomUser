@@ -6,7 +6,7 @@ import com.swapcard.randomusers.users.domain.util.CoroutineDispatchProvider
 import kotlinx.coroutines.withContext
 import javax.inject.Inject
 
-class UsersManager @Inject constructor(
+class UsersManager(
     private val dispatchProvider: CoroutineDispatchProvider
 ) {
 

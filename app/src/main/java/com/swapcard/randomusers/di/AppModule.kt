@@ -9,7 +9,6 @@ import com.swapcard.randomusers.users.data.storage.UserDao
 import com.swapcard.randomusers.users.data.storage.UserDatabase
 import com.swapcard.randomusers.users.data.utils.AppCoroutineDispatchProvider
 import com.swapcard.randomusers.users.domain.repository.UsersRepository
-import com.swapcard.randomusers.users.domain.usecase.GetUsersUseCase
 import com.swapcard.randomusers.users.domain.usecase.UserBookMarkUseCase
 import com.swapcard.randomusers.users.domain.usecase.UsersManager
 import com.swapcard.randomusers.users.domain.util.CoroutineDispatchProvider
@@ -78,7 +77,7 @@ object AppModule {
     fun provideCoroutineDispatcher(): CoroutineDispatchProvider = AppCoroutineDispatchProvider()
 
     @Provides
-    fun provideUsersCombinator(
+    fun provideUsersManager(
         dispatchProvider: CoroutineDispatchProvider
     ): UsersManager = UsersManager(dispatchProvider)
 
@@ -93,38 +92,5 @@ object AppModule {
         )
     }
 
-    @Provides
-    fun provideGetUsersUseCase(
-        repository: UsersRepository,
-        dispatchProvider: CoroutineDispatchProvider,
-        combinator: UsersManager
-    ): GetUsersUseCase {
-        return GetUsersUseCase(
-            repository = repository,
-            dispatchProvider = dispatchProvider,
-            combinator = combinator
-        )
-    }
-
-    @Provides
-    @Singleton
-    fun provideUserDatabase(
-        @ApplicationContext context: Context
-    ): UserDatabase {
-        return Room.databaseBuilder(
-            context = context,
-            UserDatabase::class.java,
-            "user_database"
-        ).build()
-    }
-
-
-    @Provides
-    @Singleton
-    fun provideUserData(
-        userDatabase: UserDatabase
-    ): UserDao {
-        return userDatabase.userDao()
-    }
 
 }

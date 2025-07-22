@@ -52,9 +52,9 @@ okHttp3 = {group = "com.squareup.okhttp3", name = "okhttp", version.ref = "okHtt
 
 serialization = {group = "org.jetbrains.kotlinx", name = "kotlinx-serialization-json", version = "1.8.0"}
 
-
 dagger-hilt = { group = "com.google.dagger", name = "hilt-android", version.ref = "hilt" }
 dagger-hilt-ksp = { group = "com.google.dagger", name = "hilt-android-compiler", version.ref = "hilt" }
+dagger-hilt-test= { group = "com.google.dagger", name = "hilt-android-testing", version.ref = "hilt" }
 hilt-compose-navigation = { group = "androidx.hilt", name = "hilt-navigation-compose", version = "1.2.0" }
 
 

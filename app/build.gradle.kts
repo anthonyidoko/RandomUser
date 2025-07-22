@@ -28,7 +28,7 @@ android {
         versionCode = 1
         versionName = "1.0"
 
-        testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
+        testInstrumentationRunner = "com.swapcard.randomusers.HiltTestRunner"
     }
 
     buildTypes {
@@ -62,6 +62,12 @@ android {
     buildFeatures {
         compose = true
         buildConfig = true
+    }
+
+    testOptions.unitTests {
+        all { tests ->
+            tests.useJUnitPlatform()
+        }
     }
 
     room {
@@ -103,4 +109,5 @@ dependencies {
 
 
     testImplementation(libs.bundles.junit5)
+    androidTestImplementation(libs.dagger.hilt.test)
 }

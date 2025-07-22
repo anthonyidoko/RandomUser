@@ -7,6 +7,8 @@ import androidx.navigation.NavGraphBuilder
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.composable
 import com.swapcard.randomusers.users.domain.model.User
+import com.swapcard.randomusers.users.presentation.utils.mapToDomainUser
+import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.serialization.Serializable
 
 @Serializable
@@ -29,49 +31,7 @@ data class UserDetailRoute(
     val streetNumber: Int?
 )
 
-fun User.mapToUserDetailRoute(): UserDetailRoute {
-    return UserDetailRoute(
-        id = id,
-        firstName = firstName,
-        lastName = lastName,
-        cell = cell,
-        dob = dob,
-        email = email,
-        gender = gender,
-        phone = phone,
-        imageUrl = imageUrl,
-        country = country,
-        age = age,
-        isFavourite = isFavourite,
-        state = state,
-        city = city,
-        streetName = streetName,
-        streetNumber = streetNumber
-    )
-}
-
-fun UserDetailRoute.mapToUserDetailRoute(): User {
-    return User(
-        id = id,
-        firstName = firstName,
-        lastName = lastName,
-        cell = cell,
-        dob = dob,
-        email = email,
-        gender = gender,
-        phone = phone,
-        imageUrl = imageUrl,
-        country = country,
-        age = age,
-        isFavourite = isFavourite,
-        state = state,
-        city = city,
-        streetName = streetName,
-        streetNumber = streetNumber
-    )
-}
-
-val userDetail: (SavedStateHandle) -> UserDetailRoute = {
+val userDetailStateFlow: (SavedStateHandle) -> MutableStateFlow<UserDetailRoute> = {
     val id = requireNotNull(it.get<String>("id"))
     val firstName = requireNotNull(it.get<String>("firstName"))
     val lastName = requireNotNull(it.get<String>("lastName"))
@@ -89,39 +49,40 @@ val userDetail: (SavedStateHandle) -> UserDetailRoute = {
     val streetName = requireNotNull(it.get<String>("streetName"))
     val streetNumber = requireNotNull(it.get<Int>("streetNumber"))
 
-    UserDetailRoute(
-        id = id,
-        firstName = firstName,
-        lastName = lastName,
-        cell = cell,
-        dob = dob,
-        email = email,
-        gender = gender,
-        phone = phone,
-        imageUrl = imageUrl,
-        country = country,
-        age = age,
-        isFavourite = isFavourite,
-        state = state,
-        city = city,
-        streetName = streetName,
-        streetNumber = streetNumber
+    MutableStateFlow(
+        UserDetailRoute(
+            id = id,
+            firstName = firstName,
+            lastName = lastName,
+            cell = cell,
+            dob = dob,
+            email = email,
+            gender = gender,
+            phone = phone,
+            imageUrl = imageUrl,
+            country = country,
+            age = age,
+            isFavourite = isFavourite,
+            state = state,
+            city = city,
+            streetName = streetName,
+            streetNumber = streetNumber
+        )
     )
 }
 
-fun NavHostController.navigateToUserDetailsListScreen(user: User) {
-    navigate(user.mapToUserDetailRoute())
-}
-
-fun NavGraphBuilder.userDetailScreen(
+fun NavGraphBuilder.detailScreen(
     onBackButtonClick: () -> Unit
 ) {
-
     composable<UserDetailRoute> {
         UserDetailScreenRoot(
             onBackButtonClick = onBackButtonClick
         )
     }
+}
+
+fun NavHostController.navigateToUserDetailsListScreen(user: User) {
+    navigate(user.mapToDomainUser())
 }
 
 
