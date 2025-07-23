@@ -1,6 +1,5 @@
 package com.swapcard.randomusers.users.presentation.components
 
-import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -13,6 +12,7 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.widthIn
 import androidx.compose.foundation.layout.wrapContentHeight
+import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
@@ -23,6 +23,12 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.draw.drawWithContent
+import androidx.compose.ui.geometry.Offset
+import androidx.compose.ui.graphics.Brush
+import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.TileMode
+import androidx.compose.ui.graphics.drawscope.Stroke
 import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
@@ -42,7 +48,7 @@ fun UserItemCard(
 ) {
     Card(
         modifier = modifier
-            .testTag(stringResource(R.string.user_item_card,firstName?:""))
+            .testTag(stringResource(R.string.user_item_card, firstName ?: ""))
             .clickable { onUserClick() }
             .fillMaxWidth()
             .wrapContentHeight()
@@ -60,13 +66,24 @@ fun UserItemCard(
             verticalAlignment = Alignment.CenterVertically,
             horizontalArrangement = Arrangement.SpaceBetween
         ) {
-
+            val colors = listOf(Color.White, Color.Black.copy(alpha = 0.8f), Color.White)
             UserCircularImage(
                 modifier = Modifier
+                    .drawWithContent {
+                        drawContent()
+                        drawCircle(
+                            brush = Brush.radialGradient(
+                                colors = colors,
+                                tileMode = TileMode.Repeated,
+                                center = Offset.Infinite,
+                                radius = 200f
+                            ),
+                            style = Stroke(20f)
+                        )
+                    }
                     .widthIn(max = 100.dp)
                     .aspectRatio(1f)
-                    .clip(RoundedCornerShape(100))
-                    .background(color = MaterialTheme.colorScheme.onSecondary)
+                    .clip(CircleShape)
                     .padding(5.dp),
                 url = imageUrl.orEmpty(),
                 firstName = firstName.orEmpty()
@@ -91,7 +108,8 @@ fun UserItemCard(
             }
 
             UserBookMark(
-                onBookMarkClick = onBookMarkClick, isFavourite =  isFavourite)
+                onBookMarkClick = onBookMarkClick, isFavourite = isFavourite
+            )
 
         }
     }

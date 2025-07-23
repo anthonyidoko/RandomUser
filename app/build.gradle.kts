@@ -31,6 +31,10 @@ android {
         testInstrumentationRunner = "com.swapcard.randomusers.HiltTestRunner"
     }
 
+    lint {
+        disable.add("NullSafeMutableLiveData")
+    }
+
     buildTypes {
         val baseUrl = credProperties["baseUrl"] as String
         release {

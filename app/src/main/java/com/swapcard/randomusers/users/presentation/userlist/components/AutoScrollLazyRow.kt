@@ -36,14 +36,14 @@ fun AutoScrollLazyRow(
         modifier = modifier,
         shape = RectangleShape,
         colors = CardDefaults.cardColors(
-            containerColor = MaterialTheme.colorScheme.surface,
+            containerColor = MaterialTheme.colorScheme.surfaceContainer,
             contentColor = MaterialTheme.colorScheme.onSurface
         )
     ) {
         LazyRow(
             state = listState,
-            contentPadding = PaddingValues(10.dp),
-            horizontalArrangement = Arrangement.spacedBy(10.dp)
+            contentPadding = PaddingValues(5.dp),
+            horizontalArrangement = Arrangement.spacedBy(12.dp)
         ) {
             items(state.bookMarkedUsers) { user ->
                 BookMarkedUserItem(
