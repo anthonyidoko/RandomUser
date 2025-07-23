@@ -45,7 +45,7 @@ fun BookMarkedUserItem(
     ) {
 
         val colors by remember {
-            derivedStateOf { listOf(Color.Cyan, Color.Blue).shuffled() }
+            derivedStateOf { listOf(Color.Red, Color.Magenta, Color.Cyan).shuffled() }
         }
         Card(
             modifier = modifier
@@ -57,11 +57,11 @@ fun BookMarkedUserItem(
                             tileMode = TileMode.Repeated,
                             center = Offset.Zero,
                         ),
-                        style = Stroke(20f),
+                        style = Stroke(13f),
                     )
                 }
                 .clip(CircleShape)
-                .sizeIn(maxWidth = 100.dp)
+                .sizeIn(maxWidth = 75.dp)
                 .aspectRatio(1f)
         ) {
 
@@ -75,7 +75,7 @@ fun BookMarkedUserItem(
 
                 UserCircularImage(
                     modifier = Modifier
-                        .widthIn(max = 180.dp)
+                        .widthIn(max = 75.dp)
                         .aspectRatio(1f)
                         .clip(CircleShape)
                         .padding(5.dp),
@@ -89,7 +89,7 @@ fun BookMarkedUserItem(
         Spacer(modifier.height(5.dp))
         Text(
             text = firstName.orEmpty(),
-            style = MaterialTheme.typography.titleMedium
+            style = MaterialTheme.typography.titleSmall
         )
     }
 }

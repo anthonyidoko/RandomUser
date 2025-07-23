@@ -78,10 +78,10 @@ fun UserItemCard(
                                 center = Offset.Infinite,
                                 radius = 200f
                             ),
-                            style = Stroke(20f)
+                            style = Stroke(15f)
                         )
                     }
-                    .widthIn(max = 100.dp)
+                    .widthIn(max = 80.dp)
                     .aspectRatio(1f)
                     .clip(CircleShape)
                     .padding(5.dp),
